@@ -1,0 +1,9 @@
+[package]
+name = "cordite"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+bpaf = "0.9.20"
+rusqlite = { version = "0.37.0", features = ["bundled"] }
+toml = "0.9.8"
