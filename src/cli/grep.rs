@@ -1,4 +1,4 @@
-//! Configures argument parser for `cordite remove` subcommand.
+//! Configures argument parser for `cordite grep` subcommand.
 
 use bpaf::*;
 
@@ -10,7 +10,16 @@ pub fn parser() -> impl Parser<Options> {
         .help("Type of entity to match (one of: artist, album, track)")
         .argument::<EntityKind>("TYPE");
 
+    let format = short('f')
+        .long("format")
+        .help("Display items according to template string")
+        .argument("FORMAT");
+
     let pattern = positional::<String>("PATTERN").help("Regex pattern to search for");
 
-    construct!(Options::Remove { r#type, pattern })
+    construct!(Options::Grep {
+        r#type,
+        format,
+        pattern
+    })
 }
