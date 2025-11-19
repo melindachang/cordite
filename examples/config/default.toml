@@ -1,0 +1,22 @@
+debug = false
+library_path = "$HOME/Music"
+metadata_db_path = "$HOME/Music/metadata.db"
+
+# COMMANDS
+
+[commands.add]
+auto_tag = true
+auto_rename = false
+file_action = "copy"  # | "move" | "None"
+strategy = "prompt"   # | "overwrite" | "keep"
+write_metadata = true
+
+[commands.sync]
+strategy = "prompt" # | "prefer-db" | "prefer-files"
+
+# RENAMER
+
+[renamer.template]
+album = "${album.artist}/${album} (${album.year}) [${format} - ${bit_depth} - ${sample_rate}]/${track.number}. ${track}.${ext}"
+single = "${album.artist}/${album} (${album.year}) [${format} - ${bit_depth} - ${sample_rate}]/${track.number}. ${track}.${ext}"
+compilation = "${album.artist}/${album} (${album.year}) [${format} - ${bit_depth} - ${sample_rate}]/${track.number}. ${track}.${ext}"
