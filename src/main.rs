@@ -1,14 +1,15 @@
 pub mod cli;
 pub mod config;
+pub mod metadata;
 
-use std::error::Error;
-
+use anyhow::Result;
 use config::AppConfig;
 
-fn main() -> Result<(), Box<dyn Error>> {
+fn main() -> Result<()> {
     let cfg = AppConfig::new()?;
 
-    println!("{:?}", cli::options(&cfg).run());
+    let opts = cli::options(&cfg).run();
+    cli::dispatch(opts)?;
 
     Ok(())
 }

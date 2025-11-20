@@ -16,3 +16,9 @@ pub fn parser() -> impl Parser<Options> {
 
     construct!(Options::Lint { full, verbose })
 }
+
+pub fn run(opts: Options) -> anyhow::Result<()> {
+    println!("{:?}", opts);
+
+    Ok(())
+}

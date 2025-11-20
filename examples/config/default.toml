@@ -14,9 +14,10 @@ write_metadata = true
 [commands.sync]
 strategy = "prompt" # | "prefer-db" | "prefer-files"
 
+# [metadata.template]
+# track.title = "{title}{feat_string:safe}"
+
 # RENAMER
 
-[renamer.template]
-album = "${album.artist}/${album} (${album.year}) [${format} - ${bit_depth} - ${sample_rate}]/${track.number}. ${track}.${ext}"
-single = "${album.artist}/${album} (${album.year}) [${format} - ${bit_depth} - ${sample_rate}]/${track.number}. ${track}.${ext}"
-compilation = "${album.artist}/${album} (${album.year}) [${format} - ${bit_depth} - ${sample_rate}]/${track.number}. ${track}.${ext}"
+[renamer]
+template = "{release.artist}/{release.title} ({release.year}) [{release.format} - {release.bit_depth} - {release.sample_rate}]/{number}. {title}"

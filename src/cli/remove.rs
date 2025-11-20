@@ -5,12 +5,19 @@ use bpaf::*;
 use crate::cli::{EntityKind, Options};
 
 pub fn parser() -> impl Parser<Options> {
-    let r#type = short('t')
+    let kind = short('t')
         .long("type")
-        .help("Type of entity to match (one of: artist, album, track)")
-        .argument::<EntityKind>("TYPE");
+        .help("Type of entity to match (one of: artist, release, track)")
+        .argument::<EntityKind>("TYPE")
+        .fallback(EntityKind::Track);
 
     let pattern = positional::<String>("PATTERN").help("Regex pattern to search for");
 
-    construct!(Options::Remove { r#type, pattern })
+    construct!(Options::Remove { kind, pattern })
+}
+
+pub fn run(opts: Options) -> anyhow::Result<()> {
+    println!("{:?}", opts);
+
+    Ok(())
 }

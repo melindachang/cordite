@@ -31,16 +31,8 @@ pub struct Commands {
 
 #[derive(Debug, Deserialize)]
 #[allow(unused)]
-pub struct RenamerTemplate {
-    pub album: String,
-    pub single: String,
-    pub compilation: String,
-}
-
-#[derive(Debug, Deserialize)]
-#[allow(unused)]
 pub struct Renamer {
-    pub template: RenamerTemplate,
+    template: String,
 }
 
 #[derive(Debug, Deserialize)]

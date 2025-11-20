@@ -3,10 +3,15 @@
 use std::str::FromStr;
 
 use bpaf::*;
+use serde::Deserialize;
 
-use crate::cli::{EntityKind, Options};
+use crate::{
+    cli::{EntityKind, Options},
+    config::SyncConfig,
+};
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Deserialize)]
+#[serde(rename_all = "kebab-case")]
 pub enum SyncStrategy {
     Prompt,
     PreferDb,
@@ -26,16 +31,24 @@ impl FromStr for SyncStrategy {
     }
 }
 
-pub fn parser() -> impl Parser<Options> {
-    let r#type = short('t')
+pub fn parser(sync_cfg: SyncConfig) -> impl Parser<Options> {
+    let kind = short('t')
         .long("type")
         .help("Type of entity to match (one of: artist, album, track)")
-        .argument::<EntityKind>("TYPE");
+        .argument::<EntityKind>("TYPE")
+        .fallback(EntityKind::Track);
+
     let strategy = short('s')
         .long("strategy")
         .help("Merge strategy (one of: prompt, prefer-db, prefer-files)")
         .argument::<SyncStrategy>("STRATEGY")
-        .fallback(SyncStrategy::Prompt);
+        .fallback(sync_cfg.strategy);
 
-    construct!(Options::Sync { r#type, strategy })
+    construct!(Options::Sync { kind, strategy })
+}
+
+pub fn run(opts: Options) -> anyhow::Result<()> {
+    println!("{:?}", opts);
+
+    Ok(())
 }
